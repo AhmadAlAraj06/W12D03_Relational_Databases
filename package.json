@@ -1,0 +1,21 @@
+{
+  "name": "w12d03_relational_databases",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js",
+		"dev": "nodemon main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmadAlAraj06/W12D03_Relational_Databases.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmadAlAraj06/W12D03_Relational_Databases/issues"
+  },
+  "homepage": "https://github.com/AhmadAlAraj06/W12D03_Relational_Databases#readme",
+  "description": ""
+}
