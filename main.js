@@ -12,8 +12,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
+// app.use('/users', usersRouter);
+app.use( usersRouter);
 app.use(authRouter);
 app.use(commentsRouter);
 app.use(roleRouter);
