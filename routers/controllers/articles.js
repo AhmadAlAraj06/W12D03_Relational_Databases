@@ -47,20 +47,27 @@ const getArticlesByAuthor = (req, res) => {
 };
 
 const getAnArticleById = (req, res) => {
-	const _id = req.params.id;
 
-	if (!_id) return res.status(404).json('not found');
+	const auth = req.params.id;
+	const query = `SELECT users.firstName ,users.id  FROM  articles INNER JOIN  users ON users.id=${auth}`;  
+	db.query(query, (err, result) => {
+	const arr = []
+	if (err) throw err;		
+	res.json(result)
+	});
 
-	articlesModel
-		.findOne({ _id })
-		.populate('author', 'firstName -_id')
-		.exec()
-		.then((result) => {
-			res.status(200).json(result);
-		})
-		.catch((err) => {
-			res.send(err);
-		});
+	// const _id = req.params.id;
+	// if (!_id) return res.status(404).json('not found');
+	// articlesModel
+	// 	.findOne({ _id })
+	// 	.populate('author', 'firstName -_id')
+	// 	.exec()
+	// 	.then((result) => {
+	// 		res.status(200).json(result);
+	// 	})
+	// 	.catch((err) => {
+	// 		res.send(err);
+	// 	});
 };
 
 const createNewArticle = (req, res) => {
@@ -145,7 +152,7 @@ const deleteArticlesByAuthor = (req, res) => {
         console.log('RESULT: ', result);
         res.json(result)
       });
-	  
+
 	// const author = req.body.author;
 	// articlesModel
 	// 	.deleteMany({ author })
