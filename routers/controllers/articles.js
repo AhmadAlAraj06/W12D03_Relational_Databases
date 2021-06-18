@@ -90,16 +90,26 @@ const createNewArticle = (req, res) => {
 };
 
 const updateAnArticleById = (req, res) => {
-	const id = req.params.id;
 
-	articlesModel
-		.findByIdAndUpdate(id, req.body, { new: true })
-		.then((result) => {
-			res.status(200).json(result);
-		})
-		.catch((err) => {
-			res.send(err);
-		});
+	const id = req.params.id;
+	const {title,description} = req.body;
+	const query = `UPDATE articles SET title=?, description = ? WHERE id=${id}`;
+	const data = [title, description];
+	db.query(query, data, (err, results) => {
+	console.log(results);
+	res.json(results)
+	});
+
+
+	// const id = req.params.id;
+	// articlesModel
+	// 	.findByIdAndUpdate(id, req.body, { new: true })
+	// 	.then((result) => {
+	// 		res.status(200).json(result);
+	// 	})
+	// 	.catch((err) => {
+	// 		res.send(err);
+	// 	});
 };
 
 const deleteArticleById = (req, res) => {
