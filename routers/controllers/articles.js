@@ -136,19 +136,28 @@ const deleteArticleById = (req, res) => {
 };
 
 const deleteArticlesByAuthor = (req, res) => {
-	const author = req.body.author;
 
-	articlesModel
-		.deleteMany({ author })
-		.then((result) => {
-			res.status(200).json({
-				success: true,
-				message: `Success Delete atricle with id => ${author}`,
-			});
-		})
-		.catch((err) => {
-			res.send(err);
-		});
+	const author = req.body.author;
+	const query = `DELETE FROM article 
+    WHERE author =? `;
+    db.query(query,author, (err, result) => {
+        if (err) throw err;
+        console.log('RESULT: ', result);
+        res.json(result)
+      });
+	  
+	// const author = req.body.author;
+	// articlesModel
+	// 	.deleteMany({ author })
+	// 	.then((result) => {
+	// 		res.status(200).json({
+	// 			success: true,
+	// 			message: `Success Delete atricle with id => ${author}`,
+	// 		});
+	// 	})
+	// 	.catch((err) => {
+	// 		res.send(err);
+	// 	});
 };
 
 module.exports = {
