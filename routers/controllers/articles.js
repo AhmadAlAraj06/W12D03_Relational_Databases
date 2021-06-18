@@ -1,7 +1,7 @@
 const articlesModel = require('./../../db/models/articles');
 
 const getAllArticles = (req, res) => {
-	
+
 	const query = `SELECT * FROM articles`;
 	db.query(query, (err, result) => {
 		if (err) throw err;
@@ -19,18 +19,31 @@ const getAllArticles = (req, res) => {
 };
 
 const getArticlesByAuthor = (req, res) => {
-	const author = req.query.author;
 
-	if (!author) return res.status(404).json('not found');
+	const auth=req.query.author;
+	const query =`SELECT * FROM articles 
+	INNER JOIN users ON users.id=author_id`;
 
-	articlesModel
-		.find({ author })
-		.then((result) => {
-			res.status(200).json(result);
-		})
-		.catch((err) => {
-			res.send(err);
-		});
+	db.query(query,(err,result) => {
+	const array=[]
+	if(err)throw err;
+	result.map((elem,i)=>{if(elem.firstName==auth){
+	array.push({title:elem.title,description:elem.description})
+	}})
+	res.json(array)
+	});
+
+	
+	// const author = req.query.author;
+	// if (!author) return res.status(404).json('not found');
+	// articlesModel
+	// 	.find({ author })
+	// 	.then((result) => {
+	// 		res.status(200).json(result);
+	// 	})
+	// 	.catch((err) => {
+	// 		res.send(err);
+	// 	});
 };
 
 const getAnArticleById = (req, res) => {
