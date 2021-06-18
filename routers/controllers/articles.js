@@ -64,11 +64,19 @@ const getAnArticleById = (req, res) => {
 };
 
 const createNewArticle = (req, res) => {
-	const { title, description, author } = req.body;
-	const article = new articlesModel({
-		title,
-		description,
-		author,
+
+	const { title, description, author_id } = req.body;
+	const query = `INSERT INTO articles (title, description,author_id ) VALUES (?,?,?)`;
+	const data = [title, description,author_id];
+ 	db.query(query, data, (err, results) => {
+	console.log(results);
+	res.json(results);
+
+	// const { title, description, author } = req.body;
+	// const article = new articlesModel({
+	// 	title,
+	// 	description,
+	// 	author,
 	});
 
 	article
